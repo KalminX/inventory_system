@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load extras %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto p-4">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">{{ object_name }} List</h2>
+        <a href="{% url object_name|lower|add:'-create' %}"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Add {{ object_name }}</a>
+    </div>
+
+    {% if object_list %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded shadow">
+            <thead class="bg-gray-100 text-left">
+                <tr>
+                    <th class="py-2 px-4 border-b">ID</th>
+                    {% for field in object_list.0|get_field_names %}
+                    <th class="py-2 px-4 border-b capitalize">{{ field }}</th>
+                    {% endfor %}
+                    <th class="py-2 px-4 border-b">Total Price (₦)</th>
+                    <th class="py-2 px-4 border-b">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in object_list %}
+                <tr class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b">{{ obj.id }}</td>
+                    {% for field in obj|get_field_names %}
+                    <td class="py-2 px-4 border-b">{{ obj|get_field_value:field }}</td>
+                    {% endfor %}
+                    <td class="py-2 px-4 border-b text-green-600 font-semibold">
+                        ₦{{ obj.total_price|floatformat:2 }}
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                        <a href="{% url object_name|lower|add:'-edit' obj.id %}"
+                            class="text-blue-600 hover:underline">Edit</a> |
+                        <a href="{% url object_name|lower|add:'-delete' obj.id %}"
+                            class="text-red-600 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-gray-600">No {{ object_name }}s found.</p>
+    {% endif %}
+</div>
+{% endblock %}
