@@ -29,11 +29,10 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kal-invent-test-5efa39b8447e.herokuapp.com']
 
 
 # Application definition
