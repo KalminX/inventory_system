@@ -3,6 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.home_redirect, name='home'),
+    
     path('suppliers/', views.SupplierListView.as_view(), name='supplier-list'),
     path('suppliers/create/', views.SupplierCreateView.as_view(), name='supplier-create'),
     path('suppliers/<int:pk>/edit/', views.SupplierUpdateView.as_view(), name='supplier-edit'),

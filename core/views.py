@@ -4,7 +4,10 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Supplier, Customer, Product, Category, IncomingOrder, OutgoingOrder
 from .forms import SupplierForm, CustomerForm, ProductForm, CategoryForm, IncomingOrderForm, OutgoingOrderForm
+from django.shortcuts import redirect
 
+def home_redirect(request):
+    return redirect('category-list')  # uses the URL name from urls.py
 
 class NamedModelMixin:
     object_name = None
